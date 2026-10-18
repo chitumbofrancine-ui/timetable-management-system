@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Timetable Manager</title>
+  <style>
+    :root { font-family: Arial, Helvetica, sans-serif; color: #172033; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; }
+    .container { max-width: 1150px; margin: 0 auto; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 8px 28px rgba(20, 35, 70, .08); }
+    h1 { margin-top: 0; color: #173b75; }
+    .hint { color: #536176; margin-top: -8px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+    label { display: block; font-weight: 600; margin-bottom: 5px; }
+    input, select { width: 100%; padding: 10px; border: 1px solid #cbd4e1; border-radius: 6px; font: inherit; }
+    input:focus, select:focus { outline: 2px solid #9bbcf5; border-color: #477bd1; }
+    .buttons { display: flex; gap: 10px; margin-top: 16px; }
+    button { padding: 10px 14px; border: 0; border-radius: 6px; cursor: pointer; font-weight: 600; color: #fff; background: #2459a9; }
+    button:hover { filter: brightness(.94); }
+    button.secondary { background: #64748b; }
+    button.edit { background: #18794e; margin-right: 5px; }
+    button.delete { background: #b42318; }
+    #status { min-height: 22px; margin-top: 12px; color: #334155; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; min-width: 900px; }
+    th, td { border: 1px solid #dce3ed; padding: 10px; text-align: left; }
+    th { background: #173b75; color: white; }
+    tbody tr:nth-child(even) { background: #f7f9fc; }
+    @media (max-width: 650px) { body { padding: 10px; } .container { padding: 16px; } .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Student Timetable Manager</h1>
+    <p class="hint">Create, view, edit and delete timetable records.</p>
+
+    <form id="timetableForm">
+      <input type="hidden" id="id">
+      <div class="form-grid">
+        <div><label for="course_code">Course Code *</label><input id="course_code" required maxlength="20"></div>
+        <div><label for="course_name">Course Name *</label><input id="course_name" required maxlength="150"></div>
+        <div><label for="lecturer_name">Lecturer *</label><input id="lecturer_name" required maxlength="100"></div>
+        <div><label for="venue">Venue *</label><input id="venue" required maxlength="50"></div>
+        <div><label for="day_of_week">Day *</label>
+          <select id="day_of_week" required>
+            <option value="Monday">Monday</option><option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option><option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option><option value="Saturday">Saturday</option><option value="Sunday">Sunday</option>
+          </select>
+        </div>
+        <div><label for="start_time">Start Time *</label><input type="time" id="start_time" required></div>
+        <div><label for="end_time">End Time *</label><input type="time" id="end_time" required></div>
+      </div>
+      <div class="buttons">
+        <button type="submit" id="submitBtn">Create Record</button>
+        <button type="button" class="secondary" id="cancelBtn">Cancel / Clear</button>
+      </div>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Code</th><th>Course Name</th><th>Lecturer</th><th>Venue</th><th>Day</th><th>Time</th><th>Actions</th></tr></thead>
+        <tbody id="timetableList"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
